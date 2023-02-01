@@ -35,6 +35,14 @@ class MainActivity : AppCompatActivity() {
 
         //Log.e("tag","Insert Operation on Database")
         //insertRecords()
+        //Log.e("tag","Retrive All Products")
+        //getProducts()
+        //Log.e("tag","Update product")
+        //updateRecords()
+        Log.e("tag","Retrive All Products")
+        getProducts()
+        Log.e("tag","Delete Product with id 151662199")
+        deleteRecords()
         Log.e("tag","Retrive All Products")
         getProducts()
     }
@@ -42,14 +50,16 @@ class MainActivity : AppCompatActivity() {
     private fun getProducts(){
 
         //to fetch all Products - not preferred, select specific column related data
-        var c = db.rawQuery("select * from products",
+        /*var c = db.rawQuery("select * from products",
         null)
 
+         */
+
         //to fetch Products in specific price range
-        /*var c = db.rawQuery(
+        var c = db.rawQuery(
             "select _id,title,price from products where price > ? and price < ?",
-        arrayOf("1000","10000")
-        )*/
+        arrayOf("5000","10000")
+        )
 
         while (c.moveToNext()){
             var id = c.getInt(0)
@@ -62,19 +72,27 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun deleteRecords(){
+        var cnt = db.delete(
+            "products",
+            "_id = ?",
+            arrayOf("151662199")
+        )
+    }
+
     private fun updateRecords(){
         var values = ContentValues()
-        values.put("price",9090)
+        values.put("price",8888)
 
         var count = db.update(
             "products",
             values,
             "_id = ?",
-            arrayOf("55")
+            arrayOf("151662199")
         )
 
         values = ContentValues()
-        values.put("price",8989)
+        values.put("price",9999)
         values.put("title","One")
 
         db.update("products",
